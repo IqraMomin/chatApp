@@ -15,8 +15,8 @@ function SignupForm() {
 
     const formSubmitHandler = (e) => {
         e.preventDefault();
-        const signupData = { email, password }
-        const isDataValid = isValid(email,password,confirmPassword);
+        const signupData = { name,email, password ,phone}
+        const isDataValid = isValid(name,email,password,phone);
         if(isDataValid){
             console.log(signupData);
             dispatch(signup(signupData));
