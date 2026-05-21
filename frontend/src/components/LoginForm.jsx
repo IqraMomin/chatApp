@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Form ,Button} from 'react-bootstrap';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import { useHistory} from 'react-router-dom/cjs/react-router-dom';
+import { login } from '../redux/slices/authSlice';
+import {useDispatch} from "react-redux";
 
 
 function LoginForm() {
@@ -8,13 +10,15 @@ function LoginForm() {
     const [password, setPassword] = useState("");
     const [error,setError] = useState("");
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const formSubmitHandler = (e) => {
         e.preventDefault();
         const loginData = { email, password }
         const isDataValid = isValid(email,password);
         if(isDataValid){
-            console.log(loginData);
+            dispatch(login(loginData));
+            resetForm();
         }
         
     }
@@ -28,12 +32,17 @@ function LoginForm() {
         }
         return true;
     }
+    const resetForm = ()=>{
+        setEmail("");
+        setPassword("");
+        setError("");
+    }
 
     return (
         <div>
-            <h2>Login</h2>
+            <h2>Login</h2><br/>
             {error && <p className='text-danger'>{error}</p>}
-            <Form onSubmit={formSubmitHandler}>
+            <Form onSubmit={formSubmitHandler} className='d-flex flex-column'>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email"
@@ -54,7 +63,7 @@ function LoginForm() {
                 </Form.Group>
                 <Button type="submit">LOGIN</Button>
                 <Button variant='link'
-                onChange={history.push("/signup")}>Create New Account</Button>
+                onClick={()=>{history.push("/signup")}}>Create New Account</Button>
             </Form>
         </div>
     )

@@ -8,12 +8,11 @@ function App() {
 
   return (
     <>
-    <h1>Chat App</h1>
     <Switch>
       <Route path="/signup"><Signup/></Route>
       <Route path="/login"><Login/></Route>
       <Route path="/" exact>
-        
+       <Login/> 
       </Route>
     </Switch>
     </>
