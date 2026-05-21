@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux';
 import { signup } from '../redux/slices/authSlice';
 
 function SignupForm() {
+    const [name,setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [phone, setPhone] = useState("");    
     const [error,setError] = useState("");
     const history = useHistory();
     const dispatch = useDispatch();
@@ -23,21 +24,20 @@ function SignupForm() {
         }
         
     }
-    const isValid = (email, password,confirmPassword) => {
-        if (email.trim().length === 0 || password.trim().length === 0 ||confirmPassword.trim().length === 0) {
+    const isValid = (name,email, password,phone) => {
+        if (name.trim().length===0 || email.trim().length === 0 || password.trim().length === 0 ||
+        phone.trim().length === 0) {
             setError("All fields are required");
-            return false;
-        }else if (confirmPassword !== password) {
-            setError("Password mismatch");
             return false;
         }
         return true;
     }
     const resetForm = ()=>{
+        setName("");
         setEmail("");
         setPassword("");
-        setConfirmPassword("");
-        setError("");
+        setPhone("");
+         setError("");
     }
 
     return (
@@ -45,6 +45,14 @@ function SignupForm() {
             <h2>Signup</h2>
             {error && <p className='text-danger'>{error}</p>}
             <Form onSubmit={formSubmitHandler} className='d-flex flex-column'>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text"
+                        value={name}
+                        onChange={(e) => { setName(e.target.value);
+                            setError("");
+                         }} />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email"
@@ -64,11 +72,11 @@ function SignupForm() {
                             }} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password"
-                        value={confirmPassword}
+                    <Form.Label>Phone</Form.Label>
+                    <Form.Control type="phone"
+                        value={phone}
                         onChange={(e) => { 
-                            setConfirmPassword(e.target.value) ;
+                            setPhone(e.target.value) ;
                             setError("");
                             }} />
                 </Form.Group>
