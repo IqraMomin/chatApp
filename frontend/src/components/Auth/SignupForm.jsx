@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Button, Form} from "react-bootstrap"
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signup } from '../redux/slices/authSlice';
+import { signup } from '../../redux/slices/authSlice';
 
 function SignupForm() {
     const [name,setName] = useState("");

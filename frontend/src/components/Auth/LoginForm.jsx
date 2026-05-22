@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form ,Button} from 'react-bootstrap';
 import { useHistory} from 'react-router-dom/cjs/react-router-dom';
-import { login } from '../redux/slices/authSlice';
+import { login } from '../../redux/slices/authSlice';
 import {useDispatch} from "react-redux";
 
 
@@ -18,6 +18,7 @@ function LoginForm() {
         const isDataValid = isValid(email,password);
         if(isDataValid){
             dispatch(login(loginData));
+            history.push("/welcome");
             resetForm();
         }
         
