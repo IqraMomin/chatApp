@@ -59,7 +59,7 @@ export const login = createAsyncThunk(
         }
 
       );
-        console.log(res.data.message);
+      console.log(res.data);
       return res.data;
 
     } catch (err) {
@@ -105,7 +105,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
 
       state.user =
-        action.payload.user;
+        action.payload;
 
     })
 

@@ -1,9 +1,10 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import ChatScreen from './ChatScreen'
 
 function ChatWindow() {
     return (
-        <Container fluid>
+        <Container fluid >
             <Row style={{height:"100vh"}}>
                 <Col md={1} style={{backgroundColor:"pink"}}>
                     <h1>*</h1>
@@ -16,8 +17,9 @@ function ChatWindow() {
                 <Col md={7} style={{
                         backgroundColor: "aliceblue",
                         height: "100vh",
-                        overflowY: "auto"
-                    }}></Col>
+                        overflowY: "auto",
+                        padding:0
+                    }}><ChatScreen/></Col>
             </Row>
         </Container>
     )

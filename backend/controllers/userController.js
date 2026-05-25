@@ -43,8 +43,8 @@ const login = async(req,res)=>{
         httpOnly:true,
         sameSite:"strict"
     })
-    console.log(token);
-    return res.json({message:"Login Successful"});
+    const userData = {userId:user.id,name:user.name,email:user.email,phone:user.phone}
+    return res.json(userData);
     }
     catch(err){
         console.log(err);
