@@ -11,6 +11,7 @@ function ChatForm() {
     const formSubmitHandler = (e)=>{
         e.preventDefault();
         dispatch(sendMessage({userId:user.userId,message}));
+        setMessage("");
 
     }
 

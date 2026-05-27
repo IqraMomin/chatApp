@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux'
 
 function ChatList() {
     const messages = useSelector(state=>state.message.list);
-
+    
     return (
         <div>
             <ul>
-                {messages.map(ele=>(
-                    <li>{messages.message}</li>
+                {console.log(messages)}
+                {messages?.map(ele=>(
+                    <li key={ele.id}>{ele.message}</li>
                 ))}
             </ul>
         </div>

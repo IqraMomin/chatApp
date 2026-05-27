@@ -1,4 +1,5 @@
 const Message = require("../models/messageModel");
+const {Op} = require("sequelize");
 
 const sendMessage = async(req,res)=>{
 try{
@@ -25,18 +26,42 @@ try{
 }
 }
 
-export const getMessages = async(req,res)=>{
+const getMessages = async(req,res)=>{
     try{
-        const messages = await Message.findAll();
-        if(!messages){
-            return res.status(400).json({message:"Messages not found"});
+        const lastMessageId = Number(req.query.lastMessageId) || 0;
+        const checkMessages = async()=>{
+            const messages = await Message.findAll({
+                where:{
+                    id:{
+                        [Op.gt]:lastMessageId
+                    }
+                }
+            })
+            if(messages.length>0){
+                res.status(200).json(messages);
+                return true;
+            }
+            return false;
         }
-        return res.status(200).json(messages);
+        const immediate = await checkMessages();
+        if(immediate) return;
+        const interval = setInterval(async()=>{
+            const found = await checkMessages();
+            if(found){
+                clearInterval(interval);
+            }
+        },1000)
+        setTimeout(()=>{
+            clearInterval(interval);
+            if(!res.headersSent){
+                return res.status(200).json([]);
+            }
+        },3000);
 
     }catch(err){
         res.status(500).json({
             success: false,
-            message: error.message
+            message: err.message
         });
     }
 }
