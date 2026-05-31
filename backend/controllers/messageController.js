@@ -1,6 +1,22 @@
 const Message = require("../models/messageModel");
 const {Op} = require("sequelize");
 
+
+const createMessage = async(data) => {
+
+    const savedMessage =
+        await Message.create({
+            userId: data.userId,
+            message: data.message
+        });
+
+    return savedMessage;
+};
+
+module.exports = {
+    createMessage
+};
+
 const sendMessage = async(req,res)=>{
 try{
     const {userId,message} = req.body;
@@ -66,4 +82,4 @@ const getMessages = async(req,res)=>{
     }
 }
 
-module.exports = {sendMessage,getMessages}
+module.exports = {sendMessage,getMessages,createMessage}

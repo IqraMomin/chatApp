@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import {useDispatch, useSelector} from "react-redux";
-import { sendMessage } from '../../redux/slices/messageSlice';
+import socket from '../../socket';
  
 function ChatForm() {
     const [message,setMessage] = useState("");

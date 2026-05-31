@@ -1,4 +1,4 @@
-const app = require("./app");
+const server = require("./app");
 const sequelize = require("./config/db-connection");
 
 const startServer =async ()=>{
@@ -7,7 +7,7 @@ try{
   console.log("Database Connected");
   await sequelize.sync({alter:true});
   console.log("Models Synchronized");
-  app.listen(process.env.DB_PORT || 3000,()=>{
+  server.listen(process.env.DB_PORT || 3000,()=>{
     console.log("Server is Up and Running");
   })
 }catch(err){
