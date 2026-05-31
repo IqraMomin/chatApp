@@ -3,48 +3,57 @@ import { Col, Container, Row } from 'react-bootstrap'
 import ChatForm from './ChatForm'
 import ChatList from './ChatList'
 import { useDispatch, useSelector } from 'react-redux';
-import { getMessages } from '../../redux/slices/messageSlice';
+import { addMessage, getMessages } from '../../redux/slices/messageSlice';
+import socket from '../../socket';
 
 function ChatScreen() {
   const dispatch =  useDispatch();
 
   useEffect(() => {
 
-    let active = true;
+    socket.on("receiveMessage",(message)=>{
+      dispatch(addMessage(message));
+      console.log(message);
+    })
 
-    const pollMessages = async (lastId = 0) => {
+    // let active = true;
 
-        if (!active) return;
+    // const pollMessages = async (lastId = 0) => {
 
-        const result =
-            await dispatch(
-                getMessages(lastId)
-            );
+    //     if (!active) return;
 
-        if (!active) return;
+    //     const result =
+    //         await dispatch(
+    //             getMessages(lastId)
+    //         );
 
-        const newMessages =
-            result.payload || [];
+    //     if (!active) return;
 
-        let nextLastId = lastId;
+    //     const newMessages =
+    //         result.payload || [];
 
-        if (newMessages.length > 0) {
+    //     let nextLastId = lastId;
 
-            nextLastId =
-                newMessages[
-                    newMessages.length - 1
-                ].id;
+    //     if (newMessages.length > 0) {
 
-        }
+    //         nextLastId =
+    //             newMessages[
+    //                 newMessages.length - 1
+    //             ].id;
 
-        pollMessages(nextLastId);
-    };
+    //     }
 
-    pollMessages();
+    //     pollMessages(nextLastId);
+    // };
 
-    return () => {
-        active = false;
-    };
+    // pollMessages();
+
+    // return () => {
+    //     active = false;
+    // };
+    return ()=>{
+      socket.off("receiveMessage")
+    }
 
 }, [dispatch]);
 
@@ -72,8 +81,10 @@ function ChatScreen() {
 
     <div
       style={{
-        backgroundColor: "green",
-        height: "10vh"
+        backgroundColor: "#585a5e",
+        height: "10vh",
+        width:"100%"
+        
       }}
     >
      <ChatForm/>

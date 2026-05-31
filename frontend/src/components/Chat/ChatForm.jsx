@@ -10,7 +10,7 @@ function ChatForm() {
 
     const formSubmitHandler = (e)=>{
         e.preventDefault();
-        dispatch(sendMessage({userId:user.userId,message}));
+        socket.emit("sendMessage",{userId:user.userId,message})
         setMessage("");
 
     }
@@ -20,7 +20,9 @@ function ChatForm() {
             <Form className='d-flex' onSubmit={formSubmitHandler}>
                 <Form.Group controlId='ControlInput1'>
                 <Form.Control value={message}
-                onChange={(e)=>{setMessage(e.target.value)}}/>
+                onChange={(e)=>{setMessage(e.target.value)}}
+                style={{width:"700px"
+                }}/>
                 </Form.Group>
                 <Button type="submit" variant='btn-success'>Send</Button>
             </Form>
