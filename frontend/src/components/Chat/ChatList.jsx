@@ -7,9 +7,11 @@ function ChatList() {
     return (
         <div>
             <ul>
-                {console.log(messages)}
                 {messages?.map(ele=>(
-                    <li key={ele.id}><p>{ele.name}</p><p>{ele.message}</p></li>
+                    <li key={ele.message.id}>
+                        <div className='d-flex gap-2'>
+                        <p>{ele.username}</p><p>{ele.message.message}</p>
+                            </div></li>
                 ))}
             </ul>
         </div>

@@ -11,8 +11,8 @@ function ChatScreen() {
 
   useEffect(() => {
 
-    socket.on("receiveMessage",(message)=>{
-      dispatch(addMessage(message));
+    socket.on("receiveMessage",({username,message})=>{
+      dispatch(addMessage({username,message}));
       console.log(message);
     })
 

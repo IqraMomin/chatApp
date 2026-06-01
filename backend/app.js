@@ -4,11 +4,14 @@ const app = express();
 const userRoutes = require("./routes/userRoutes");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const cookie = require("cookie");
 require("./models/index");
 const messageRoutes = require("./routes/messageRoutes");
 const {Server} = require("socket.io");
 const { createMessage } = require("./controllers/messageController");
 const jwt = require("jsonwebtoken");
+const User = require("./models/userModel");
+require("dotenv").config();
 
 app.use(express.json());
 app.use(cors({
@@ -26,23 +29,35 @@ const io = new Server(server,{cors:{
     credentials:true
 }});
 
-io.use((socket,next)=>{
+io.use(async(socket,next)=>{
     try{
-        const token = socket.handshake.headers.cookie;
+        const cookies = cookie.parse(
+            socket.handshake.headers.cookie || ""
+        );
+        const token = cookies.token;
+        console.log("Token",token);
         if(!token){
-            next(new Error("Unauthorized"));
+           return next(new Error("Unauthorized"));
         }
-        const decoded = jwt.verify(token,process.env.SECRETKEY);
-        socket.user = decoded;
+        const decoded = jwt.verify(token,process.env.JWT_SECRETKEY);
+        const user =await User.findByPk(decoded.id);
+        if(!user){
+            return next(
+                new Error("User not found")
+            );
+        }
+
+        socket.user = user;
         next();
 
     }catch(err){
+        console.log(err.message);
         next(new Error("Invalid Token"));
     }
 })
 
 io.on("connection",(socket)=>{
-    console.log("User Connected with id:",socket.id);
+    console.log("User Connected with id:",socket.user.name);
     socket.on("sendMessage",async(data)=>{
         try{
             const savedMessage = await createMessage(data);
