@@ -9,7 +9,7 @@ function ChatList() {
             <ul>
                 {console.log(messages)}
                 {messages?.map(ele=>(
-                    <li key={ele.id}>{ele.message}</li>
+                    <li key={ele.id}><p>{ele.name}</p><p>{ele.message}</p></li>
                 ))}
             </ul>
         </div>
