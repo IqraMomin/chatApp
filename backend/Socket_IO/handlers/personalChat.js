@@ -4,6 +4,6 @@ module.exports= (socket,io)=>{
         socket.join(roomName)
     })
     socket.on("new-message",({message,roomName})=>{
-        io.emit("new-message",{username:socket.user.name,message});
+        io.to(roomName).emit("new-message",{username:socket.user.name,message});
     })
 }

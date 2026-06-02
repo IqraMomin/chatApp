@@ -59,7 +59,7 @@ export const login = createAsyncThunk(
         }
 
       );
-      console.log(res.data);
+      localStorage.setItem("email",res.data.email);
       return res.data;
 
     } catch (err) {

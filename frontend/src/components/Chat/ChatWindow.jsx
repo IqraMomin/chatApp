@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import ChatScreen from './ChatScreen'
+import SearchBar from './SearchBar'
 
 function ChatWindow() {
     return (
@@ -13,7 +14,9 @@ function ChatWindow() {
                         backgroundColor: "antiquewhite",
                         height: "100vh",
                         overflowY: "auto"
-                    }}></Col>
+                    }}>
+                        <SearchBar/>
+                    </Col>
                 <Col md={7} style={{
                         backgroundColor: "aliceblue",
                         height: "100vh",
