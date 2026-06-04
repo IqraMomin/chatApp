@@ -16,5 +16,4 @@ module.exports = (server)=>{
       chatHandler(socket,io); 
       personalChatHandler(socket,io);
     })
-    return io;
 }

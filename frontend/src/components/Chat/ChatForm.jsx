@@ -5,12 +5,12 @@ import socket from '../../socket';
  
 function ChatForm() {
     const [message,setMessage] = useState("");
-    const dispatch = useDispatch();
     const user = useSelector(state=>state.auth.user);
 
     const formSubmitHandler = (e)=>{
         e.preventDefault();
-        socket.emit("sendMessage",{userId:user.userId,message})
+        const roomName = localStorage.getItem("roomName");
+        socket.emit("new-message",{userId:user.id,roomName,message});
         setMessage("");
 
     }

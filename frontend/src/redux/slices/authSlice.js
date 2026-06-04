@@ -79,6 +79,28 @@ export const login = createAsyncThunk(
   }
 );
 
+export const checkUser = createAsyncThunk("auth/checkUser",async(email,thunkAPI)=>{
+try{
+    const res = await axios.get(`${API}/users/check-user/${email}`,{
+      withCredentials:true
+    });
+    return res.data;
+
+}catch (err) {
+
+      return thunkAPI.rejectWithValue(
+
+        err.response?.data?.message ||
+
+        err.message ||
+
+        "User Not Found"
+
+      );
+
+    }
+})
+
 const authSlice = createSlice({
 
   name: "auth",

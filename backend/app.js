@@ -6,7 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require("./models/index");
 const messageRoutes = require("./routes/messageRoutes");
-crequire("dotenv").config();
+require("dotenv").config();
 const socketIO = require("./Socket_IO");
 
 app.use(express.json());

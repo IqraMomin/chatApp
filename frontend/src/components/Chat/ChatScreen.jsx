@@ -11,7 +11,7 @@ function ChatScreen() {
 
   useEffect(() => {
 
-    socket.on("receiveMessage",({username,message})=>{
+    socket.on("new-message",({username,message})=>{
       dispatch(addMessage({username,message}));
       console.log(message);
     })
@@ -52,7 +52,7 @@ function ChatScreen() {
     //     active = false;
     // };
     return ()=>{
-      socket.off("receiveMessage")
+      socket.off("new-message")
     }
 
 }, [dispatch]);
