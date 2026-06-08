@@ -8,6 +8,7 @@ require("./models/index");
 const messageRoutes = require("./routes/messageRoutes");
 require("dotenv").config();
 const socketIO = require("./Socket_IO");
+require("./crons/archievedChats");
 
 app.use(express.json());
 app.use(cors({
