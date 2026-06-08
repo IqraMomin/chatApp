@@ -8,9 +8,11 @@ function ChatList() {
         <div>
             <ul>
                 {messages?.map(ele=>(
-                    <li key={ele.message.id}>
+                    
+                    <li key={ele.id}>
                         <div className='d-flex gap-2'>
-                        <p>{ele.username}</p><p>{ele.message.message}</p>
+                            {ele.mediaUrl && <img src={ele.mediaUrl} width="400px" height="400px"/>}
+                        <p>{ele.username}</p><p>{ele.message}</p>
                             </div></li>
                 ))}
             </ul>

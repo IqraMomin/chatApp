@@ -85,5 +85,18 @@ export const getMessages = createAsyncThunk("message/getMessages", async (lastMe
     }
 })
 
+export const uploadMedia = createAsyncThunk("message/uploadMedia",async(file)=>{
+    try{
+        const formData = new FormData();
+        formData.append("media",file);
+        const res= await axios.post(`${API}/messages/upload`,formData,{
+            withCredentials:true})
+        return res.data;
+    }catch(err){
+        console.log(err.message);
+        return err.message;
+    }
+})
+
 export const {addMessage} = messageSlice.actions;
 export default messageSlice.reducer

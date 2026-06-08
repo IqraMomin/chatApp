@@ -11,9 +11,10 @@ function ChatScreen() {
 
   useEffect(() => {
 
-    socket.on("new-message",({username,message})=>{
-      dispatch(addMessage({username,message}));
-      console.log(message);
+    socket.on("new-message",(data)=>{
+      console.log({username:data.username,...data.message})
+      dispatch(addMessage({username:data.username,...data.message}));
+      
     })
 
     // let active = true;
