@@ -6,7 +6,7 @@ const personalChatHandler = require("../Socket_IO/handlers/personalChat");
 
 module.exports = (server)=>{
     const io = new Server(server,{cors:{
-        origin:"http://localhost:5173",
+        origin:"http://localhost:5174",
         credentials:true
     }});
 

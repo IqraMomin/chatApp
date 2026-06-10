@@ -98,5 +98,15 @@ export const uploadMedia = createAsyncThunk("message/uploadMedia",async(file)=>{
     }
 })
 
+export const getSuggestions = createAsyncThunk("message/getSuggestions",async(text)=>{
+    try{
+        const res = await axios.post(`${API}/gemini/ai/predict`,{text});
+        return res.data;
+    }catch(err){
+        console.log(err.message);
+        return err.message;
+    }
+})
+
 export const {addMessage} = messageSlice.actions;
 export default messageSlice.reducer
